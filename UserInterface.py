@@ -8,39 +8,59 @@ i, j = 0, 0
 default_bg = "LightSteelBlue1"
 default_bg_but = "LightSkyBlue4"
 default_fg_but = "snow"
-logged_user = ""
+logged_user_type = ""
 
 
 class LogInWindow:
+    form_login = None
+    form_passwd = None
+
     def __init__(self, master):
+        #global form_login, form_passwd
         self.master = master
         self.frame1 = tk.Frame(self.master, borderwidth=20, bg=default_bg)
         self.frame2 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
         self.frame3 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
         self.label = tk.Label(self.master, text="\nWelcome to the Library App", bg=default_bg)
         self.label.pack(fill=tk.BOTH)
-        create_form_row(self.frame1, "Username: ")
-        create_form_row(self.frame1, "Password: ")
-        create_button(self.frame3, "Login", self.check_login, "w", 0, 0)
-        create_button(self.frame3, "Quit", self.close_window, "e", 0, 1)
+        LogInWindow.form_login = create_form_row(self.frame1, "Username: ")
+        LogInWindow.form_passwd = create_form_row(self.frame1, "Password: ")
+        create_button(self.frame2, "Login", self.check_login, "w", 0, 0)
+        create_button(self.frame2, "Quit", self.close_window, "e", 0, 1)
         self.frame1.pack(fill=tk.BOTH)
-        self.frame2.pack(fill=tk.Y)
-        self.frame3.pack(fill=tk.Y, side=tk.BOTTOM)
+        self.frame2.pack(fill=tk.Y, side=tk.BOTTOM)
+        # self.frame3.pack(fill=tk.Y, side=tk.BOTTOM)
 
     def check_login(self):
+        login = LogInWindow.form_login.get()
+        passwd = LogInWindow.form_passwd.get()
         print("Checking login credentials")
+        usr = utils.get_user(login=login)
+        if login == usr.login:
+            if usr.utype == "admin":
+                if passwd == usr.passwd:
+                    self.new_admin_window()
+                else:
+                    print("Wrong admin password provided. Try again")
+            elif usr.utype == "user":
+                if passwd == usr.passwd:
+                    self.new_user_window()
+                else:
+                    print("Wrong user password provided. Try again")
+        else:
+            print("User not found")
 
     def new_admin_window(self):
-        global logged_user
+        global logged_user_type
         zero_the_counters()
-        logged_user = "admin"
+        logged_user_type = "admin"
         self.newWindow = tk.Toplevel(self.master)
         self.app = AdminWelcome(self.newWindow)
 
     def new_user_window(self):
-        global logged_user
+        global logged_user_type
         zero_the_counters()
-        logged_user = "user"
+        logged_user_type = "user"
         self.newWindow = tk.Toplevel(self.master)
         self.app = UserWelcome(self.newWindow)
 
@@ -54,7 +74,7 @@ class StandardWindow:
         self.title = "Library App"
         self.frame1 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
         self.frame2 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
-        self.label1 = tk.Label(master=self.frame1, text="Welcome, {}".format(logged_user), bg=default_bg)
+        self.label1 = tk.Label(master=self.frame1, text="Welcome, {}".format(logged_user_type), bg=default_bg)
         self.label1.grid(row=0, column=0, padx=10, sticky="w")
         self.button1 = tk.Button(master=self.frame1, text="Log out", command=self.close_windows, bg=default_bg)
         self.button1.grid(row=0, column=1, padx=10, sticky="e")
@@ -68,9 +88,9 @@ class StandardWindow:
     def new_window(self):
         zero_the_counters()
         self.newWindow = tk.Toplevel(self.master)
-        if logged_user == "admin":
+        if logged_user_type == "admin":
             self.app = AdminWelcome(self.newWindow)
-        elif logged_user == "user":
+        elif logged_user_type == "user":
             self.app = UserWelcome(self.newWindow)
         else:
             print("User type not recognized")

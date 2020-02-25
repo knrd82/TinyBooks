@@ -34,7 +34,7 @@ def read_users_from_csv():
 
 
 def read_books_from_csv():
-    print("Reading from books csv")
+    print("Reading books from file...")
 
 
 def show_all_users():
@@ -48,10 +48,11 @@ def update_csv_files():
     print("Updating csv files")
 
 
-def get_user(uid):
-    print("Getting user with id: {}".format(uid))
+def get_user(uid=None, login=None):
+    print("Getting user with id: {}, login: {}".format(uid, login))
     for us in users:
-        if us.uid == uid:
+        if us.uid == uid or us.login == login:
+            print("Entered this function")
             return us
     return False
 
