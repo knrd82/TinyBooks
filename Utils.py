@@ -12,9 +12,7 @@ def initialise_library():
     print("Initialising Library App")
     read_users_from_csv()
     read_books_from_csv()
-    show_all_users()
-    print(get_user(1003))
-    print(get_user(9999))
+    # show_all_users()
 
 
 def close_library():
