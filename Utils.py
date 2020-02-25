@@ -13,6 +13,8 @@ def initialise_library():
     read_users_from_csv()
     read_books_from_csv()
     show_all_users()
+    print(get_user(1003))
+    print(get_user(9999))
 
 
 def close_library():
@@ -51,10 +53,9 @@ def update_csv_files():
 def get_user(uid):
     print("Getting user with id: {}".format(uid))
     for us in users:
-        if us[0] == uid:
-            print("User {} found".format(uid))
-        else:
-            print("User not found")
+        if us.uid == uid:
+            return us
+    return False
 
 
 def get_book(bid):
