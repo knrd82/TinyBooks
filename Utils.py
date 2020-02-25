@@ -12,6 +12,7 @@ def initialise_library():
     print("Initialising Library App")
     read_users_from_csv()
     read_books_from_csv()
+    show_all_users()
 
 
 def close_library():
@@ -24,16 +25,10 @@ def read_users_from_csv():
     with open(USERS_FILE_PATH, newline="", mode='r', encoding="utf-8-sig") as userscsv:
         reader = csv.reader(userscsv, delimiter=',')
         for row in reader:
-            #print("{} {} {} {} {} {} {} {} {} {} {}".format(row[0], row[1], row[2], row[3], row[4], row[5], row[6],
-             #                                               row[7], row[8], row[9], row[10]))
             if row[1] == "admin":
-                a = usr.Admin(name=row[2], login=row[3], passwd=row[4])
-                users.append(a)
+                users.append(usr.Admin(name=row[2], login=row[3], passwd=row[4]))
             elif row[1] == "user":
-                u = usr.Regular(row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
-                # TODO: Fix this print
-                print(u)
-                users.append(u)
+                users.append(usr.Regular(row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]))
             else:
                 print("User type not recognised")
 
@@ -42,7 +37,7 @@ def read_books_from_csv():
     print("Reading from books csv")
 
 
-def print_all_users():
+def show_all_users():
     print("Priniting all users")
     print("-" * 60)
     for us in users:
@@ -55,6 +50,11 @@ def update_csv_files():
 
 def get_user(uid):
     print("Getting user with id: {}".format(uid))
+    for us in users:
+        if us[0] == uid:
+            print("User {} found".format(uid))
+        else:
+            print("User not found")
 
 
 def get_book(bid):

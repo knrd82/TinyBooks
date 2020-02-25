@@ -21,25 +21,25 @@ class Admin(User):
         self.utype = "admin"
 
     def __str__(self):
-        return "{:<6}{:<10}{:<10}".format(self.uid, self.name, self.utype)
+        return "{:<6}{:<8}{:<20}".format(self.uid, self.utype, self.name)
 
 
 class Regular(User):
     def __init__(self, *args):
         super(Regular, self).__init__(self, *args)
         self.utype = "user"
-        self.curr_fine = 0.0
         self.name = args[0]
         self.login = args[1]
         self.passwd = args[2]
-        self.dob = args[3]
-        self.addr1 = args[4]
-        self.addr2 = args[5]
-        self.phone = args[6]
-        self.mem_since = args[7]
+        self.curr_fine = args[3]
+        self.dob = args[4]
+        self.addr1 = args[5]
+        self.addr2 = args[6]
+        self.phone = args[7]
+        self.mem_since = args[8]
 
     def __str__(self):
-        return "{:<6}{:<10}{:<10}{:<5}{:<15}{:<20}{:<20}{:<12}{:<12}".format(self.uid, self.name, self.utype, self.curr_fine,
+        return "{:<6}{:<8}{:<20}{:<4}{:<12}{:<32}{:<20}{:<17}{:<15}".format(self.uid, self.utype, self.name, self.curr_fine,
                                                                              self.dob, self.addr1, self.addr2, self.phone,
                                                                              self.mem_since)
 
