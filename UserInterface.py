@@ -32,6 +32,7 @@ class LogInWindow:
         # self.frame3.pack(fill=tk.Y, side=tk.BOTTOM)
 
     def check_login(self):
+        # TODO: Make this function more pythonic and eliminate D.R.Y.
         login = LogInWindow.form_login.get()
         passwd = LogInWindow.form_passwd.get()
         print("Checking login credentials")
