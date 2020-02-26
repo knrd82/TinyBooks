@@ -8,6 +8,7 @@ default_bg = "LightSteelBlue1"
 default_bg_but = "LightSkyBlue4"
 default_fg_but = "snow"
 logged_user_type = ""
+user_types = [("Admin", "1"), ("User", "2")]
 
 
 class LogInWindow:
@@ -57,11 +58,13 @@ class LogInWindow:
     def new_admin_window(self):
         zero_the_counters()
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = AdminWelcome(self.newWindow)
 
     def new_user_window(self):
         zero_the_counters()
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = UserWelcome(self.newWindow)
 
     def close_window(self):
@@ -73,7 +76,7 @@ class StandardWindow:
         self.master = master
         self.title = "Library App"
         self.frame1 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
-        self.frame2 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
+        self.frame2 = tk.Frame(self.master, borderwidth=5, bg=default_bg)
         self.label1 = tk.Label(master=self.frame1, text="Welcome, {}".format(logged_user_type), bg=default_bg)
         self.label1.grid(row=0, column=0, padx=10, sticky="w")
         self.button1 = tk.Button(master=self.frame1, text="Log out", command=self.close_windows, bg=default_bg)
@@ -100,21 +103,25 @@ class AdminWelcome(StandardWindow):
         print("Registering new user")
         zero_the_counters()
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = RegUser(self.newWindow)
 
     def check_reg_users(self):
         print("Checking registered users")
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = CheckUsers(self.newWindow)
 
     def display_rent_books(self):
         print("Displaying rented books")
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = DisplayRented(self.newWindow)
 
     def add_book(self):
         print("Adding new book")
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = AddBook(self.newWindow)
 
 
@@ -127,15 +134,26 @@ class RegUser(StandardWindow):
 
     def __init__(self, master):
         super().__init__(master)
-        RegUser.form_fullname = create_form_row(self.frame2, "Full Name: ")
-        RegUser.form_dob = create_form_row(self.frame2, "Date of Birth: ")
-        RegUser.form_addr1 = create_form_row(self.frame2, "Address Line 1: ")
-        RegUser.form_addr2 = create_form_row(self.frame2, "Address Line 2: ")
-        RegUser.form_phone = create_form_row(self.frame2, "Phone Number: ")
+        global i, j
         self.frame3 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
-        create_button(self.frame3, "Cancel", self.close_windows, "w", 0, 0)
-        create_button(self.frame3, "Finish", self.save_user, "e", 0, 1)
-        self.frame3.pack(fill=tk.BOTH, side=tk.BOTTOM)
+        self.frame4 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
+        v = tk.StringVar()
+        v.set("1")
+        self.label2 = tk.Label(master=self.frame2, borderwidth=0, bg=default_bg)
+        self.label2.grid(columnspan=2, row=0)
+        for text, mode in user_types:
+            b = tk.Radiobutton(self.frame2, bg=default_bg, text=text, variable=v, value=mode)
+            b.grid(row=1, column=j)
+            j += 1
+        RegUser.form_fullname = create_form_row(self.frame3, "Full Name: ")
+        RegUser.form_dob = create_form_row(self.frame3, "Date of Birth: ")
+        RegUser.form_addr1 = create_form_row(self.frame3, "Address Line 1: ")
+        RegUser.form_addr2 = create_form_row(self.frame3, "Address Line 2: ")
+        RegUser.form_phone = create_form_row(self.frame3, "Phone Number: ")
+        create_button(self.frame4, "Cancel", self.close_windows, "w", 0, 0)
+        create_button(self.frame4, "Finish", self.save_user, "e", 0, 1)
+        self.frame3.pack(fill=tk.BOTH)
+        self.frame4.pack(fill=tk.BOTH, side=tk.BOTTOM)
 
     def save_user(self):
         print("Saving user to file...")
@@ -197,16 +215,19 @@ class UserWelcome(StandardWindow):
     def rent_book(self):
         print("Renting book")
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = RentBook(self.newWindow)
 
     def return_book(self):
         print("Returning book")
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = ReturnBook(self.newWindow)
 
     def check_avail_books(self):
         print("Checking available books")
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = CheckAvailability(self.newWindow)
 
 
@@ -251,6 +272,7 @@ class CheckAvailability(StandardWindow):
     def browse_books(self):
         print("Displaying available books")
         self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
         self.app = DisplayRented(self.newWindow)
 
 
@@ -331,6 +353,7 @@ def zero_the_counters():
 def main():
     # global image
     root = tk.Tk()
+    root.resizable(False, False)
     utils.initialise_library()
     # image = tk.PhotoImage(file="logout-1.gif")
     root.title("Library App")
