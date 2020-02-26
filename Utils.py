@@ -49,7 +49,6 @@ def update_csv_files():
 
 
 def get_user(uid=None, login=None):
-    print("Getting user with id: {}, login: {}".format(uid, login))
     for us in users:
         if us.uid == uid or us.login == login:
             return us

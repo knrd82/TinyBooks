@@ -34,6 +34,7 @@ class LogInWindow:
 
     def check_login(self):
         # TODO: Make this function more pythonic and eliminate D.R.Y.
+        show_message(self.lab, "")
         login = LogInWindow.form_login.get()
         passwd = LogInWindow.form_passwd.get()
         usr = utils.get_user(login=login)
@@ -43,6 +44,8 @@ class LogInWindow:
             if usr:
                 if login == usr.login:
                     if passwd == usr.passwd:
+                        clear_input(LogInWindow.form_login)
+                        clear_input(LogInWindow.form_passwd)
                         if usr.utype == "admin":
                             self.new_admin_window()
                         else:
@@ -303,6 +306,10 @@ def create_books_table(frame):
 
 def show_message(label, msg):
     label.config(text=msg)
+
+
+def clear_input(entry):
+    entry.delete(0, tk.END)
 
 
 def zero_the_counters():
