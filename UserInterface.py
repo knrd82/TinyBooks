@@ -18,38 +18,43 @@ class LogInWindow:
     def __init__(self, master):
         #global form_login, form_passwd
         self.master = master
-        self.frame1 = tk.Frame(self.master, borderwidth=20, bg=default_bg)
-        self.frame2 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
+        self.frame1 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
+        self.frame2 = tk.Frame(self.master, borderwidth=0, bg=default_bg)
         self.frame3 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
         self.label = tk.Label(self.master, text="\nWelcome to the Library App", bg=default_bg)
         self.label.pack(fill=tk.BOTH)
         LogInWindow.form_login = create_form_row(self.frame1, "Username: ")
         LogInWindow.form_passwd = create_form_row(self.frame1, "Password: ")
-        create_button(self.frame2, "Login", self.check_login, "w", 0, 0)
-        create_button(self.frame2, "Quit", self.close_window, "e", 0, 1)
+        create_button(self.frame3, "Login", self.check_login, "w", 0, 0)
+        create_button(self.frame3, "Quit", self.close_window, "e", 0, 1)
+        self.lab = tk.Label(self.frame2, bg=default_bg, fg="red", font=("Helvetica", 10))
+        self.lab.pack(fill=tk.BOTH)
         self.frame1.pack(fill=tk.BOTH)
-        self.frame2.pack(fill=tk.Y, side=tk.BOTTOM)
-        # self.frame3.pack(fill=tk.Y, side=tk.BOTTOM)
+        self.frame2.pack(fill=tk.X)
+        self.frame3.pack(fill=tk.Y, side=tk.BOTTOM)
 
     def check_login(self):
         # TODO: Make this function more pythonic and eliminate D.R.Y.
         login = LogInWindow.form_login.get()
         passwd = LogInWindow.form_passwd.get()
-        print("Checking login credentials")
+        show_message(self.lab, "Checking login credentials")
         usr = utils.get_user(login=login)
-        if login == usr.login:
-            if usr.utype == "admin":
-                if passwd == usr.passwd:
-                    self.new_admin_window()
-                else:
-                    print("Wrong admin password provided. Try again")
-            elif usr.utype == "user":
-                if passwd == usr.passwd:
-                    self.new_user_window()
-                else:
-                    print("Wrong user password provided. Try again")
+        if usr:
+            if login == usr.login:
+                if usr.utype == "admin":
+                    if passwd == usr.passwd:
+                        self.new_admin_window()
+                    else:
+                        print("Wrong admin password provided. Try again")
+                elif usr.utype == "user":
+                    if passwd == usr.passwd:
+                        self.new_user_window()
+                    else:
+                        print("Wrong user password provided. Try again")
+            else:
+                print("User not found")
         else:
-            print("User not found")
+            print("You need to provide login and password")
 
     def new_admin_window(self):
         global logged_user_type
@@ -309,6 +314,11 @@ def create_books_table(frame):
     tree.insert("", "end", "2", values=("1", "Fundamentals of Wavelets", "Jaideva Goswami", "tech", "228", "Wiley", 1))
     tree.insert("", "end", "3", values=("1", "Fundamentals of Wavelets", "Jaideva Goswami", "tech", "228", "Wiley", 1))
     tree.grid(row=1, column=0, columnspan=1)
+
+
+def show_message(label, msg):
+    print("Showing message")
+    label.config(text=msg)
 
 
 def zero_the_counters():
