@@ -2,9 +2,7 @@
 ### A simple book rental app made as part of learning Python  
 
 This is a simple app using **basic OOP** concepts and **tkinter** for UI.
-If you want to see terrible UI design straight from late 90's, you came to the right place.
-
-**DRY**ness of this code is very unhealthy, so make sure you have plenty of liquids by your side when looking at the codebase.
+If you want to see terrible UI design straight from late 90's, you came to the right place. **DRY**ness of the code is very unhealthy, so make sure you have plenty of liquids by your side when reviewing it.
 
 This is ridiculously simple app so I don't expect anybody will ever use it (even parts of it whatsoever), but if you do intend to use it, just give me a shout.
 
