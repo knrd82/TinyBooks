@@ -1,4 +1,3 @@
-#import Users as usr
 import Utils as utils
 import tkinter as tk
 from tkinter import ttk
@@ -120,18 +119,30 @@ class AdminWelcome(StandardWindow):
 
 
 class RegUser(StandardWindow):
+    form_fullname = None
+    form_dob = None
+    form_addr1 = None
+    form_addr2 = None
+    form_phone = None
+
     def __init__(self, master):
         super().__init__(master)
-        create_form_row(self.frame2, "Name: ")
-        create_form_row(self.frame2, "Surname: ")
-        create_form_row(self.frame2, "Date of Birth: ")
-        create_form_row(self.frame2, "Address Line 1: ")
-        create_form_row(self.frame2, "Address Line 2: ")
-        create_form_row(self.frame2, "Phone Number: ")
+        RegUser.form_fullname = create_form_row(self.frame2, "Full Name: ")
+        RegUser.form_dob = create_form_row(self.frame2, "Date of Birth: ")
+        RegUser.form_addr1 = create_form_row(self.frame2, "Address Line 1: ")
+        RegUser.form_addr2 = create_form_row(self.frame2, "Address Line 2: ")
+        RegUser.form_phone = create_form_row(self.frame2, "Phone Number: ")
         self.frame3 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
         create_button(self.frame3, "Cancel", self.close_windows, "w", 0, 0)
-        create_button(self.frame3, "Finish", self.close_windows, "e", 0, 1)
+        create_button(self.frame3, "Finish", self.save_user, "e", 0, 1)
         self.frame3.pack(fill=tk.BOTH, side=tk.BOTTOM)
+
+    def save_user(self):
+        print("Saving user to file...")
+        self.close_windows()
+
+    def close_windows(self):
+        super(RegUser, self).close_windows()
 
 
 class CheckUsers(StandardWindow):
