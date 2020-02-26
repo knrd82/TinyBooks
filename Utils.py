@@ -52,7 +52,6 @@ def get_user(uid=None, login=None):
     print("Getting user with id: {}, login: {}".format(uid, login))
     for us in users:
         if us.uid == uid or us.login == login:
-            print("Entered this function")
             return us
     return False
 

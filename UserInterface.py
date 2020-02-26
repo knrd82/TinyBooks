@@ -16,7 +16,6 @@ class LogInWindow:
     form_passwd = None
 
     def __init__(self, master):
-        #global form_login, form_passwd
         self.master = master
         self.frame1 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
         self.frame2 = tk.Frame(self.master, borderwidth=0, bg=default_bg)
@@ -37,24 +36,21 @@ class LogInWindow:
         # TODO: Make this function more pythonic and eliminate D.R.Y.
         login = LogInWindow.form_login.get()
         passwd = LogInWindow.form_passwd.get()
-        show_message(self.lab, "Checking login credentials")
         usr = utils.get_user(login=login)
-        if usr:
-            if login == usr.login:
-                if usr.utype == "admin":
-                    if passwd == usr.passwd:
-                        self.new_admin_window()
-                    else:
-                        print("Wrong admin password provided. Try again")
-                elif usr.utype == "user":
-                    if passwd == usr.passwd:
-                        self.new_user_window()
-                    else:
-                        print("Wrong user password provided. Try again")
-            else:
-                print("User not found")
+        if login == "" or passwd == "":
+            show_message(self.lab, "You need to provide login and password")
         else:
-            print("You need to provide login and password")
+            if usr:
+                if login == usr.login:
+                    if passwd == usr.passwd:
+                        if usr.utype == "admin":
+                            self.new_admin_window()
+                        else:
+                            self.new_user_window()
+                    else:
+                        show_message(self.lab, "Wrong password provided. Try again")
+            else:
+                show_message(self.lab, "User not found")
 
     def new_admin_window(self):
         global logged_user_type
@@ -88,18 +84,7 @@ class StandardWindow:
         self.frame2.pack(fill=tk.BOTH)
 
     def close_windows(self):
-        print("Closing child window")
         self.master.destroy()
-
-    def new_window(self):
-        zero_the_counters()
-        self.newWindow = tk.Toplevel(self.master)
-        if logged_user_type == "admin":
-            self.app = AdminWelcome(self.newWindow)
-        elif logged_user_type == "user":
-            self.app = UserWelcome(self.newWindow)
-        else:
-            print("User type not recognized")
 
 # --------------------- ADMIN WINDOWS ----------------------------
 
@@ -317,7 +302,6 @@ def create_books_table(frame):
 
 
 def show_message(label, msg):
-    print("Showing message")
     label.config(text=msg)
 
 
