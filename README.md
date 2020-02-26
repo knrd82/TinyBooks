@@ -4,6 +4,8 @@
 This is a simple app using **basic OOP** concepts and **tkinter** for UI.
 If you want to see terrible UI design straight from late 90's, you came to the right place.
 
+DRYness of this code is very unhealthy, so make sure you have plenty of liquids by your side when looking at the codebase.
+
 This is ridiculously simple app so I don't expect anybody will ever use it (even parts of it whatsoever), but if you do intend to use it, just give me a shout.
 
 **Comments and feedback are welcomed** as this is probably most unpythonic piece of code out here and I am still at the beginning of learning curve.  
