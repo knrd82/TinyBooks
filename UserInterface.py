@@ -56,16 +56,12 @@ class LogInWindow:
                 show_message(self.lab, "User not found")
 
     def new_admin_window(self):
-        global logged_user_type
         zero_the_counters()
-        logged_user_type = "admin"
         self.newWindow = tk.Toplevel(self.master)
         self.app = AdminWelcome(self.newWindow)
 
     def new_user_window(self):
-        global logged_user_type
         zero_the_counters()
-        logged_user_type = "user"
         self.newWindow = tk.Toplevel(self.master)
         self.app = UserWelcome(self.newWindow)
 
@@ -251,7 +247,10 @@ def create_form_row(frame_form, title):
     global i, j
     j = 0
     label = tk.Label(master=frame_form, text=title, bg=default_bg)
-    entry = tk.Entry(master=frame_form, width=30)
+    option = ""
+    if title == "Password: ":
+        option = "*"
+    entry = tk.Entry(master=frame_form, show=option, width=30)
     label.grid(row=i, column=j, sticky="e")
     j += 1
     entry.grid(row=i, column=j)
