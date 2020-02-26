@@ -33,7 +33,6 @@ class LogInWindow:
         self.frame3.pack(fill=tk.Y, side=tk.BOTTOM)
 
     def check_login(self):
-        # TODO: Make this function more pythonic and eliminate D.R.Y.
         show_message(self.lab, "")
         login = LogInWindow.form_login.get()
         passwd = LogInWindow.form_passwd.get()
@@ -145,6 +144,7 @@ class RegUser(StandardWindow):
             b = tk.Radiobutton(self.frame2, bg=default_bg, text=text, variable=v, value=mode)
             b.grid(row=1, column=j)
             j += 1
+        # TODO: Get the values from radiobuttons and entries and create user. Next save user to csv
         RegUser.form_fullname = create_form_row(self.frame3, "Full Name: ")
         RegUser.form_dob = create_form_row(self.frame3, "Date of Birth: ")
         RegUser.form_addr1 = create_form_row(self.frame3, "Address Line 1: ")
