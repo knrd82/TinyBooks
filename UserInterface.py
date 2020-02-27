@@ -151,7 +151,6 @@ class RegUser(StandardWindow):
             b = tk.Radiobutton(self.frame2, bg=default_bg, text=text, variable=RegUser.v, value=mode)
             b.grid(row=1, column=j)
             j += 1
-        # TODO: Get the values from radiobuttons and entries and create user. Next save user to csv
         RegUser.form_login = create_form_row(self.frame3, "* Username: ")
         RegUser.form_passwd = create_form_row(self.frame3, "* Password: ")
         RegUser.form_fullname = create_form_row(self.frame3, "* Full Name: ")
@@ -167,12 +166,9 @@ class RegUser(StandardWindow):
     def save_user(self):
         print("Saving user to file...")
         utype = user_types[int(RegUser.v.get())-1][0]
-        # utils.show_all_users()
-        print("-" * 50)
         utils.add_user(utype, RegUser.form_fullname.get(), RegUser.form_login.get(), RegUser.form_passwd.get(), 0.0,
                        RegUser.form_dob.get(), RegUser.form_addr1.get(), RegUser.form_addr2.get(),
                        RegUser.form_phone.get(), today_date.strftime('%d/%m/%Y'))
-        utils.show_all_users()
         self.close_windows()
 
     def close_windows(self):

@@ -35,10 +35,17 @@ def read_users_from_csv():
 
 def add_user(type, *args):
     if type == "Admin":
-        users.append(usr.Admin(name=args[0], login=args[1], passwd=args[2]))
+        ad = usr.Admin(name=args[0], login=args[1], passwd=args[2])
+        users.append(ad)
+        with open(USERS_FILE_PATH, 'a') as csvfile:
+            print("{},{},{},{},{}".format(ad.uid, ad.utype, ad.name, ad.login, ad.passwd), file=csvfile, flush=True)
     elif type == "User":
-        users.append(usr.Regular(args[0], args[1], args[2], args[3], args[4]
-                                 , args[5], args[6], args[7], args[8]))
+        us = usr.Regular(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8])
+        users.append(us)
+        with open(USERS_FILE_PATH, 'a') as csvfile:
+            print("{},{},{},{},{},{},{},{},{},{},{}".format(us.uid, us.utype, us.name, us.login, us.passwd,
+                                                            us.curr_fine, us.dob, us.addr1, us.addr2, us.phone,
+                                                            us.mem_since), file=csvfile, flush=True)
     else:
         print("User type not recognised")
 
@@ -55,6 +62,7 @@ def show_all_users():
 
 def update_csv_files():
     print("Updating csv files")
+
 
 
 def get_user(uid=None, login=None):
