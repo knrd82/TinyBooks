@@ -49,6 +49,7 @@ def add_user(type, *args):
     else:
         print("User type not recognised")
 
+
 def read_books_from_csv():
     print("Reading books from file...")
 
@@ -62,7 +63,6 @@ def show_all_users():
 
 def update_csv_files():
     print("Updating csv files")
-
 
 
 def get_user(uid=None, login=None):

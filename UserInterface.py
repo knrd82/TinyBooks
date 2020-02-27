@@ -1,4 +1,5 @@
 import Utils as utils
+import Users as usrs
 import tkinter as tk
 import datetime
 from tkinter import ttk
@@ -310,21 +311,24 @@ def create_button(frame, title, comm, stick="", ro=0, col=0):
 
 def create_users_table(frame):
     print("Creating users table")
-    labels = ("Name", "User type", "Date of Birth", "Address 1", "Address 2")
-    tree = ttk.Treeview(frame, columns=labels, selectmode="browse", show='headings')
-    for col in labels:
-        tree.heading(col, text=col)
+    labels = [(0, "ID", 50), (1, "Type", 50), (2, "Name", 100), (3, "Fine", 50), (4, "DoB", 100), (5, "Address 1", 150),
+              (6, "Address 2", 150), (7, "Phone", 100), (8, "Mem_since", 100)]
+    tree = ttk.Treeview(frame, selectmode="browse", show='headings', column=("ID", "Type", "Name", "Fine", "DoB", "Address 1", "Address 2", "Phone", "Mem_since"))
+    vsb = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+    vsb.pack(side='right', fill='y')
+    for row in labels:
+        tree.heading(row[1], text=row[1])
+        tree.column(labels[row[0]][1], width=labels[row[0]][2], stretch="NO")
 
-    tree.column("Name", minwidth=100, width=100, stretch="NO")
-    tree.column("User type", minwidth=100, width=100, stretch="NO")
-    tree.column("Date of Birth", minwidth=150, width=150, stretch="NO")
-    tree.column("Address 1", minwidth=200, width=200, stretch="NO")
-    tree.column("Address 2", minwidth=200, width=200, stretch="NO")
+    for row in utils.users:
+        if isinstance(row, usrs.Admin):
+            tree.insert("", "end", values=(row.uid, row.utype, row.name))
+        elif isinstance(row, usrs.Regular):
+            tree.insert("", "end", values=(row.uid, row.utype, row.name, row.curr_fine, row.dob, row.addr1, row.addr2, row.phone, row.mem_since))
+        else:
+            print("Type not recognized")
 
-    tree.insert("", "end", "Konrad", values=("Konrad", "Admin", "01/01/1900", "Some address", "City"))
-    tree.insert("", "end", "Amy", text="Amy", values=("Amy", "user", "02/02/2002", "Some address", "City"))
-    tree.insert("", "end", "test", text="test", values=("test", "user", "03/03/2003", "Some address", "City"))
-    tree.grid(row=1, column=0, columnspan=1)
+    tree.pack()
 
 
 def create_books_table(frame):
