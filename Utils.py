@@ -33,6 +33,15 @@ def read_users_from_csv():
                 print("User type not recognised")
 
 
+def add_user(type, *args):
+    if type == "Admin":
+        users.append(usr.Admin(name=args[0], login=args[1], passwd=args[2]))
+    elif type == "User":
+        users.append(usr.Regular(args[0], args[1], args[2], args[3], args[4]
+                                 , args[5], args[6], args[7], args[8]))
+    else:
+        print("User type not recognised")
+
 def read_books_from_csv():
     print("Reading books from file...")
 

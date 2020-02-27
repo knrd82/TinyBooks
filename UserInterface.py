@@ -1,5 +1,6 @@
 import Utils as utils
 import tkinter as tk
+import datetime
 from tkinter import ttk
 
 i, j = 0, 0
@@ -9,6 +10,7 @@ default_bg_but = "LightSkyBlue4"
 default_fg_but = "snow"
 logged_user_type = ""
 user_types = [("Admin", "1"), ("User", "2")]
+today_date = datetime.datetime.today()
 
 
 class LogInWindow:
@@ -125,27 +127,34 @@ class AdminWelcome(StandardWindow):
 
 
 class RegUser(StandardWindow):
+    form_login = None
+    form_passwd = None
     form_fullname = None
     form_dob = None
     form_addr1 = None
     form_addr2 = None
     form_phone = None
+    v = None
 
     def __init__(self, master):
         super().__init__(master)
         global i, j
         self.frame3 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
         self.frame4 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
-        v = tk.StringVar()
-        v.set("1")
+        RegUser.v = tk.StringVar()
+        RegUser.f = tk.StringVar()
+        RegUser.v.set("1")
+        RegUser.f.set("")
         self.label2 = tk.Label(master=self.frame2, borderwidth=0, bg=default_bg)
         self.label2.grid(columnspan=2, row=0)
         for text, mode in user_types:
-            b = tk.Radiobutton(self.frame2, bg=default_bg, text=text, variable=v, value=mode)
+            b = tk.Radiobutton(self.frame2, bg=default_bg, text=text, variable=RegUser.v, value=mode)
             b.grid(row=1, column=j)
             j += 1
         # TODO: Get the values from radiobuttons and entries and create user. Next save user to csv
-        RegUser.form_fullname = create_form_row(self.frame3, "Full Name: ")
+        RegUser.form_login = create_form_row(self.frame3, "* Username: ")
+        RegUser.form_passwd = create_form_row(self.frame3, "* Password: ")
+        RegUser.form_fullname = create_form_row(self.frame3, "* Full Name: ")
         RegUser.form_dob = create_form_row(self.frame3, "Date of Birth: ")
         RegUser.form_addr1 = create_form_row(self.frame3, "Address Line 1: ")
         RegUser.form_addr2 = create_form_row(self.frame3, "Address Line 2: ")
@@ -157,6 +166,13 @@ class RegUser(StandardWindow):
 
     def save_user(self):
         print("Saving user to file...")
+        utype = user_types[int(RegUser.v.get())-1][0]
+        # utils.show_all_users()
+        print("-" * 50)
+        utils.add_user(utype, RegUser.form_fullname.get(), RegUser.form_login.get(), RegUser.form_passwd.get(), 0.0,
+                       RegUser.form_dob.get(), RegUser.form_addr1.get(), RegUser.form_addr2.get(),
+                       RegUser.form_phone.get(), today_date.strftime('%d/%m/%Y'))
+        utils.show_all_users()
         self.close_windows()
 
     def close_windows(self):
