@@ -52,6 +52,10 @@ def add_user(type, *args):
 
 def read_books_from_csv():
     print("Reading books from file...")
+    with open(BOOKS_FILE_PATH, newline="", mode='r', encoding="utf-8-sig") as bookscsv:
+        reader = csv.reader(bookscsv, delimiter=',')
+        for row in reader:
+            if row[1]
 
 
 def show_all_users():

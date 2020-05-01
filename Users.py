@@ -1,4 +1,3 @@
-import csv
 import itertools as it
 
 
@@ -40,6 +39,5 @@ class Regular(User):
 
     def __str__(self):
         return "{:<6}{:<8}{:<20}{:<4}{:<12}{:<32}{:<20}{:<17}{:<15}".format(self.uid, self.utype, self.name, self.curr_fine,
-                                                                             self.dob, self.addr1, self.addr2, self.phone,
-                                                                             self.mem_since)
-
+                                                                            self.dob, self.addr1, self.addr2, self.phone,
+                                                                            self.mem_since)
