@@ -204,15 +204,14 @@ class AddBook(StandardWindow):
         self.pub = create_form_row(self.frame2, "Publisher: ")
         self.pca = create_form_row(self.frame2, "Price category: ")
         self.frame3 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
-        create_button(self.frame3, "Submit", self.get_entry_details, "w", 0, 0)
+        create_button(self.frame3, "Submit", self.save_book, "w", 0, 0)
         create_button(self.frame3, "Back", self.close_windows, "e", 0, 1)
         self.frame3.pack(fill=tk.BOTH, side=tk.BOTTOM)
 
-    def get_entry_details(self):
-        print("Title: {}\nAuthor: {}\nCategory: {}\nPages: {}\nPublisher: {}\nPrice category: {}\n".format(self.tit.get(), self.aut.get(),
-                                                                                                           self.cat.get(), self.pag.get(),
-                                                                                                           self.pub.get(), self.pca.get()))
-
+    def save_book(self):
+        print("Saving new book to file...")
+        utils.add_book(self.tit.get(), self.aut.get(), self.cat.get(), self.pag.get(), self.pub.get(), self.pca.get())
+        self.close_windows()
 
 # --------------------- USER WINDOWS ----------------------------
 
