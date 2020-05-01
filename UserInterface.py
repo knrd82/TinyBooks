@@ -333,23 +333,20 @@ def create_users_table(frame):
 
 def create_books_table(frame):
     print("Creating books table")
-    labels = ("ID", "Title", "Author", "Category", "Pages", "Publisher", "Price cat")
-    tree = ttk.Treeview(frame, columns=labels, selectmode="browse", show='headings')
-    for col in labels:
-        tree.heading(col, text=col)
+    labels = [(0, "ID", 50), (1, "Title", 250), (2, "Author", 150), (3, "Category", 100),
+              (4, "Pages", 50), (5, "Publisher", 150), (6, "Price", 50)]
+    tree = ttk.Treeview(frame, selectmode="browse", show='headings', column=("ID", "Title", "Author", "Category", "Pages", "Publisher", "Price"))
+    vsb = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+    vsb.pack(side='right', fill='y')
 
-    tree.column("ID", minwidth=30, width=30, stretch="NO")
-    tree.column("Title", minwidth=200, width=200, stretch="NO")
-    tree.column("Author", minwidth=150, width=150, stretch="NO")
-    tree.column("Category", minwidth=100, width=100, stretch="NO")
-    tree.column("Pages", minwidth=50, width=50, stretch="NO")
-    tree.column("Publisher", minwidth=100, width=100, stretch="NO")
-    tree.column("Price cat", minwidth=70, width=70, stretch="NO")
+    for row in labels:
+        tree.heading(row[1], text=row[1])
+        tree.column(labels[row[0]][1], width=labels[row[0]][2], stretch="NO")
 
-    tree.insert("", "end", "1", values=("1", "Fundamentals of Wavelets", "Jaideva Goswami", "tech", "228", "Wiley", 1))
-    tree.insert("", "end", "2", values=("1", "Fundamentals of Wavelets", "Jaideva Goswami", "tech", "228", "Wiley", 1))
-    tree.insert("", "end", "3", values=("1", "Fundamentals of Wavelets", "Jaideva Goswami", "tech", "228", "Wiley", 1))
-    tree.grid(row=1, column=0, columnspan=1)
+    for row in utils.books:
+        tree.insert("", "end", values=(row.bid, row.title, row.author, row.category, row.pages, row.publisher, row.price_cat))
+
+    tree.pack()
 
 
 def show_message(label, msg):

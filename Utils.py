@@ -1,5 +1,6 @@
 import csv
 import Users as usr
+import Book as bk
 
 USERS_FILE_PATH = "users-csv.csv"
 BOOKS_FILE_PATH = "books.csv"
@@ -55,7 +56,7 @@ def read_books_from_csv():
     with open(BOOKS_FILE_PATH, newline="", mode='r', encoding="utf-8-sig") as bookscsv:
         reader = csv.reader(bookscsv, delimiter=',')
         for row in reader:
-            if row[1]
+            books.append(bk.Book(row[1], row[2], row[3], row[4], row[5], row[6]))
 
 
 def show_all_users():
