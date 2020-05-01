@@ -10,6 +10,7 @@ default_bg = "LightSteelBlue1"
 default_bg_but = "LightSkyBlue4"
 default_fg_but = "snow"
 logged_user_type = ""
+logged_user_id = ""
 user_types = [("Admin", "1"), ("User", "2")]
 today_date = datetime.datetime.today()
 
@@ -36,6 +37,7 @@ class LogInWindow:
         self.frame3.pack(fill=tk.Y, side=tk.BOTTOM)
 
     def check_login(self):
+        global logged_user_id
         show_message(self.lab, "")
         login = LogInWindow.form_login.get()
         passwd = LogInWindow.form_passwd.get()
@@ -48,6 +50,7 @@ class LogInWindow:
                     if passwd == usr.passwd:
                         clear_input(LogInWindow.form_login)
                         clear_input(LogInWindow.form_passwd)
+                        logged_user_id = usr.uid
                         if usr.utype == "admin":
                             self.new_admin_window()
                         else:

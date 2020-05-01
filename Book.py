@@ -11,6 +11,7 @@ class Book:
         self.pages = args[3]
         self.publisher = args[4]
         self.price_cat = args[5]
+        self.rented_by = "0"
 
     def __str__(self):
         return "{:<6}{:<60}{:<20}{:<10}{:<4}{:<20}{:<4}".format(self.bid, self.title, self.author, self.category,

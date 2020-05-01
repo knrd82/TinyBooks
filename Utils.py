@@ -63,8 +63,8 @@ def add_book(*args):
     book = bk.Book(args[0], args[1], args[2], args[3], args[4], args[5])
     books.append(book)
     with open(BOOKS_FILE_PATH, 'a') as bookscsv:
-        print("{},{},{},{},{},{},{}".format(book.bid, book.title, book.author, book.category, book.pages, book.publisher,
-                                            book.price_cat), file=bookscsv, flush=True)
+        print("{},{},{},{},{},{},{},{}".format(book.bid, book.title, book.author, book.category, book.pages, book.publisher,
+                                            book.price_cat, book.rented_by), file=bookscsv, flush=True)
 
 
 def show_all_users():
