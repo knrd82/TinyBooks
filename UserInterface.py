@@ -38,6 +38,7 @@ class LogInWindow:
 
     def check_login(self):
         global logged_user_id
+        global logged_user_type
         show_message(self.lab, "")
         login = LogInWindow.form_login.get()
         passwd = LogInWindow.form_passwd.get()
@@ -51,7 +52,8 @@ class LogInWindow:
                         clear_input(LogInWindow.form_login)
                         clear_input(LogInWindow.form_passwd)
                         logged_user_id = usr.uid
-                        if usr.utype == "admin":
+                        logged_user_type = usr.utype
+                        if logged_user_type == "admin":
                             self.new_admin_window()
                         else:
                             self.new_user_window()
@@ -337,7 +339,16 @@ def create_books_table(frame):
     print("Creating books table")
     labels = [(0, "ID", 50), (1, "Title", 250), (2, "Author", 150), (3, "Category", 100),
               (4, "Pages", 50), (5, "Publisher", 150), (6, "Price", 50)]
-    tree = ttk.Treeview(frame, selectmode="browse", show='headings', column=("ID", "Title", "Author", "Category", "Pages", "Publisher", "Price"))
+    headings = ["ID", "Title", "Author", "Category", "Pages", "Publisher", "Price"]
+    print(logged_user_type)
+    if logged_user_type == "admin":
+        labels.append((7, "Rented by", 100))
+        headings.append("Rented by")
+
+    print(labels)
+    print(headings)
+
+    tree = ttk.Treeview(frame, selectmode="browse", show='headings', column=headings)
     vsb = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
     vsb.pack(side='right', fill='y')
 
