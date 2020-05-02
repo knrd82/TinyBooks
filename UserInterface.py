@@ -1,5 +1,6 @@
 import Utils as utils
 import Users as usrs
+import Book as bk
 import tkinter as tk
 import datetime
 from tkinter import ttk
@@ -255,13 +256,22 @@ class RentBook(StandardWindow):
         self.frame4 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
         create_books_table(self.frame2)
         self.selection = create_form_row(self.frame3, "Choose a book by ID or Title: ")
-        create_button(self.frame4, "Submit", self.get_book_id, "w", 0, 0)
+        create_button(self.frame4, "Submit", self.rent_book, "w", 0, 0)
         create_button(self.frame4, "Back", self.close_windows, "e", 0, 1)
         self.frame3.pack(fill=tk.BOTH)
         self.frame4.pack(fill=tk.BOTH, side=tk.BOTTOM)
 
-    def get_book_id(self):
-        print("Book id chosen: {}".format(self.selection.get()))
+    def rent_book(self):
+        sel = self.selection.get()
+        b = utils.get_book(int(sel))
+        if isinstance(b, bk.Book):
+            print("Title: {}".format(b.title))
+            print("Rented by: {}".format(logged_user_id))
+            b.rented_by = logged_user_id
+        else:
+            print("Book id not found. Please try again")
+
+        self.close_windows()
 
 
 class ReturnBook(RentBook):

@@ -1,3 +1,5 @@
+from tempfile import NamedTemporaryFile
+import shutil
 import csv
 import Users as usr
 import Book as bk
@@ -85,8 +87,23 @@ def get_user(uid=None, login=None):
     return False
 
 
-def get_book(bid):
-    print("Getting book with id: {}".format(bid))
+def get_book(book_id):
+    for b in books:
+        if b.bid == book_id:
+            return b
+    return False
+
+
+def update_file(path, change):
+    tempfile = NamedTemporaryFile(delete=False)
+
+    with open(path, 'rb') as old_file, tempfile:
+        reader = csv.reader(old_file, delimiter=',')
+        writer = csv.writer(tempfile, delimiter=',')
+
+        for row in reader:
+            # TODO: Finish this function
+
 
 
 def is_empty():
