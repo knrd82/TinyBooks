@@ -101,9 +101,8 @@ def update_file(path, change):
         reader = csv.reader(old_file, delimiter=',')
         writer = csv.writer(tempfile, delimiter=',')
 
-        for row in reader:
+        # for row in reader:
             # TODO: Finish this function
-
 
 
 def is_empty():

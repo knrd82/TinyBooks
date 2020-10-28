@@ -355,8 +355,8 @@ def create_books_table(frame):
         labels.append((7, "Rented by", 100))
         headings.append("Rented by")
 
-    print(labels)
-    print(headings)
+    # print(labels)
+    # print(headings)
 
     tree = ttk.Treeview(frame, selectmode="browse", show='headings', column=headings)
     vsb = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
@@ -385,6 +385,7 @@ def zero_the_counters():
     i = 0
     j = 0
 
+# TODO: Add cascade close of all sub-windows when user hits 'log out'
 
 def main():
     # global image
