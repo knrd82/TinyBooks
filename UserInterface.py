@@ -77,6 +77,7 @@ class LogInWindow:
 
     def close_window(self):
         self.master.destroy()
+        utils.close_library()
 
 
 class StandardWindow:
@@ -102,10 +103,11 @@ class AdminWelcome(StandardWindow):
     def __init__(self, master):
         super().__init__(master)
         create_button(self.frame2, "1. Register new user", self.reg_new_user, ro=0)
-        create_button(self.frame2, "2. Check registered users", self.check_reg_users, ro=1)
-        create_button(self.frame2, "3. Display rented books", self.display_rent_books, ro=2)
-        create_button(self.frame2, "4. Add new book", self.add_book, ro=3)
-        create_button(self.frame2, "5. Quit", self.close_windows, ro=4)
+        create_button(self.frame2, "2. Edit users", self.edit_user, ro=1)
+        create_button(self.frame2, "3. Check registered users", self.check_reg_users, ro=2)
+        create_button(self.frame2, "4. Display rented books", self.display_rent_books, ro=3)
+        create_button(self.frame2, "5. Add new book", self.add_book, ro=4)
+        create_button(self.frame2, "6. Quit", self.close_windows, ro=5)
 
     def reg_new_user(self):
         print("Registering new user")
@@ -113,6 +115,12 @@ class AdminWelcome(StandardWindow):
         self.newWindow = tk.Toplevel(self.master)
         self.newWindow.resizable(False, False)
         self.app = RegUser(self.newWindow)
+
+    def edit_user(self):
+        print("Editing user")
+        self.newWindow = tk.Toplevel(self.master)
+        self.newWindow.resizable(False, False)
+        self.app = EditUser(self.newWindow)
 
     def check_reg_users(self):
         print("Checking registered users")
@@ -182,6 +190,82 @@ class RegUser(StandardWindow):
         super(RegUser, self).close_windows()
 
 
+class EditUser(StandardWindow):
+    form_userId = None
+    form_login = None
+    form_fullname = None
+    form_dob = None
+    form_addr1 = None
+    form_addr2 = None
+    form_phone = None
+    text_login = None
+    text_fullname = None
+    text_dob = None
+    text_addr1 = None
+    text_addr2 = None
+    text_phone = None
+
+    def __init__(self, master):
+        super().__init__(master)
+        global i, j
+        self.frame3 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
+        self.frame4 = tk.Frame(self.master, borderwidth=10, bg=default_bg)
+        self.label2 = tk.Label(master=self.frame2, borderwidth=5, bg=default_bg, fg="red", font=("Helvetica", 10))
+        self.label2.grid(columnspan=2, row=0)
+
+        EditUser.text_login = tk.StringVar()
+        EditUser.text_fullname = tk.StringVar()
+        EditUser.text_dob = tk.StringVar()
+        EditUser.text_addr1 = tk.StringVar()
+        EditUser.text_addr2 = tk.StringVar()
+        EditUser.text_phone = tk.StringVar()
+
+        EditUser.form_userId = create_form_row(self.frame3, "User ID: ")
+        EditUser.form_login = create_form_row(self.frame3, "* Username: ", EditUser.text_login)
+        EditUser.form_fullname = create_form_row(self.frame3, "* Full Name: ", EditUser.text_fullname)
+        EditUser.form_dob = create_form_row(self.frame3, "Date of Birth: ", EditUser.text_dob)
+        EditUser.form_addr1 = create_form_row(self.frame3, "Address Line 1: ", EditUser.text_addr1)
+        EditUser.form_addr2 = create_form_row(self.frame3, "Address Line 2: ", EditUser.text_addr2)
+        EditUser.form_phone = create_form_row(self.frame3, "Phone Number: ", EditUser.text_phone)
+        create_button(self.frame4, "Find", self.display_user, "w", 0, 0)
+        create_button(self.frame4, "Save", self.save_user, "e", 0, 1)
+        self.frame3.pack(fill=tk.BOTH)
+        self.frame4.pack(fill=tk.BOTH, side=tk.BOTTOM)
+
+    def display_user(self):
+        show_message(self.label2, "")
+        temp_id = int(EditUser.form_userId.get())
+        temp_user = utils.get_user(uid=temp_id)
+        if temp_user:
+            print(temp_user)
+            EditUser.text_login.set(temp_user.login)
+            EditUser.text_fullname.set(temp_user.name)
+            EditUser.text_dob.set(temp_user.dob)
+            EditUser.text_addr1.set(temp_user.addr1)
+            EditUser.text_addr2.set(temp_user.addr2)
+            EditUser.text_phone.set(temp_user.phone)
+        else:
+            show_message(self.label2, "User not found. Please try again")
+            EditUser.text_login.set("")
+            EditUser.text_fullname.set("")
+            EditUser.text_dob.set("")
+            EditUser.text_addr1.set("")
+            EditUser.text_addr2.set("")
+            EditUser.text_phone.set("")
+
+
+    def save_user(self):
+        print("Saving user to file...")
+        #utype = user_types[int(RegUser.v.get()) - 1][0]
+        #utils.add_user(utype, RegUser.form_fullname.get(), RegUser.form_login.get(), RegUser.form_passwd.get(), 0.0,
+        #               RegUser.form_dob.get(), RegUser.form_addr1.get(), RegUser.form_addr2.get(),
+        #               RegUser.form_phone.get(), today_date.strftime('%d/%m/%Y'))
+        self.close_windows()
+
+    def close_windows(self):
+        super(EditUser, self).close_windows()
+
+
 class CheckUsers(StandardWindow):
     def __init__(self, master):
         super().__init__(master)
@@ -218,6 +302,7 @@ class AddBook(StandardWindow):
         print("Saving new book to file...")
         utils.add_book(self.tit.get(), self.aut.get(), self.cat.get(), self.pag.get(), self.pub.get(), self.pca.get())
         self.close_windows()
+
 
 # --------------------- USER WINDOWS ----------------------------
 
@@ -262,6 +347,7 @@ class RentBook(StandardWindow):
         self.frame4.pack(fill=tk.BOTH, side=tk.BOTTOM)
 
     def rent_book(self):
+        # TODO: This needs to invoke update function
         sel = self.selection.get()
         b = utils.get_book(int(sel))
         if isinstance(b, bk.Book):
@@ -303,14 +389,17 @@ class CheckAvailability(StandardWindow):
         self.app = DisplayRented(self.newWindow)
 
 
-def create_form_row(frame_form, title):
+def create_form_row(frame_form, title, strvar=None):
     global i, j
     j = 0
     label = tk.Label(master=frame_form, text=title, bg=default_bg)
     option = ""
     if title == "Password: ":
         option = "*"
-    entry = tk.Entry(master=frame_form, show=option, width=30)
+    if strvar:
+        entry = tk.Entry(master=frame_form, show=option, width=30, textvariable=strvar)
+    else:
+        entry = tk.Entry(master=frame_form, show=option, width=30)
     label.grid(row=i, column=j, sticky="e")
     j += 1
     entry.grid(row=i, column=j)

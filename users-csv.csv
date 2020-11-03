@@ -1,13 +1,13 @@
-﻿1000,admin,Konrad,knrd,adm,,,,,,
+1000,admin,Konrad,knrd,adm,,,,,,
 1001,admin,Inez Butler,adm,adm,,,,,,
 1002,user,Simon Beck,test,test1234,0,15/12/1969,Ap #387-9026 Taciti St.,Gladstone,(012992) 42333,25/05/2019
 1003,user,Gretchen Soto,test2,test1234,0,11/04/1988,5248 Est. St.,Saint-Vincent,(027) 5152 1452,05/05/2019
 1004,user,Sloane Shaffer,Libby,QS7BF5,0,24/01/1978,1598 Vestibulum. Rd.,Gaggio Montano,070 5349 7596,06/07/2019
 1005,user,Leroy Munoz,Kylie,AM5MS1,0,08/07/1951,1497 Parturient Avenue,Silius,0800 718011,24/10/2019
-1006,user,Ethan Hoover,Wing,KK7IV7,0,10/11/1982,"P.O. Box 962, 9033 A, Av.",DoÃ±ihue,0800 1111,29/07/2019
+1006,user,Ethan Hoover,Wing,KK7IV7,0,10/11/1982,"P.O. Box 962, 9033 A, Av.",Do�ihue,0800 1111,29/07/2019
 1007,user,Cassidy Vasquez,Libby,IV4NP8,0,01/11/1986,"214-1487 Placerat, St.",San Juan Cesar,(014156) 13779,11/07/2019
 1008,user,Palmer Orr,Chase,JL6TE3,0,06/12/1978,Ap #371-1274 Convallis Ave,Buin,0800 327 2914,24/08/2019
-1009,user,Julie Garza,Leo,YK9CE2,0,23/06/1951,Ap #471-6786 Ac Avenue,Zielona GÃ³ra,(01941) 32974,21/08/2019
+1009,user,Julie Garza,Leo,YK9CE2,0,23/06/1951,Ap #471-6786 Ac Avenue,Zielona G�ra,(01941) 32974,21/08/2019
 1010,user,Andrew Velez,Sloane,LD5NF4,0,29/04/1970,Ap #468-3289 Dictum Rd.,Buzenol,07624 006677,22/04/2019
 1011,user,Fiona Drake,Quinlan,NI3BJ5,0,09/05/1981,919 Et Road,Chatillon,07624 712859,22/02/2020
 1012,user,Tobias Sims,Ian,IU3GF7,0,06/05/1997,"Ap #468-4633 Elementum, St.",Kakisa,0800 1111,13/05/2019
@@ -18,5 +18,5 @@
 1017,user,Paula Tran,Edan,RX9CV4,0,28/05/1981,433 Orci Rd.,Hoogstraten,(01338) 955744,13/05/2019
 1018,user,Emmanuel Turner,Amal,JF4CN6,0,13/07/1990,2008 Donec Street,Camarones,(0171) 533 7305,28/08/2019
 1019,user,Colt Finch,Dustin,FZ8MR8,0,25/12/1972,718-1215 Velit Street,Lehrte,0800 336453,04/07/2019
-1020,admin,kdjfhb,ldfgjl,ksdjhg
-1021,user,Test Testa,test1,test1234,0.0,01/01/2001,Address 1,Address 2,0123456789,27/02/2020
+1020,admin,kdjfhb,llddff,adm,,,,,,
+1021,user,Test Testa,test1,test1234,0,01/01/2001,Address 1,Address 2,123456789,27/02/2020
